@@ -15,25 +15,45 @@ async function initBabylonJS(){
     var canvas = document.getElementById("renderCanvas");
     var engine = new BABYLON.Engine(canvas, true); 
 
+    var greyColor = new BABYLON.Color3(.5,.5,.5);
+    var color1 = new BABYLON.Color3(0, 0.4392, 0.006);
+    var color2 = new BABYLON.Color3(0.0274, 0.2745, 0.4666);
+    var color1hell = new BABYLON.Color3(color1.r*2, color1.g*2, color1.b*2);
+    var color2hell = new BABYLON.Color3(color2.r*2, color2.g*2, color2.b*2);
+
     var createScene = async () => {
         var scene = new BABYLON.Scene(engine);
-        scene.clearColor = new BABYLON.Color3(.5, .5, .5);
+        scene.clearColor = new BABYLON.Color3(.2, .2, .2);
         scene.fogMode = BABYLON.Scene.FOGMODE_LINEAR;
-        scene.fogStart = 15;
+        scene.fogStart = 20;
         scene.fogEnd = 25;
-        scene.fogColor = new BABYLON.Color3(.5, .5, .5);
+        scene.fogColor = new BABYLON.Color3(.2, .2, .2);
 
         var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0, 0, 6), scene);
+        
+                 
+        if(canvas.width < canvas.height){ 
+            console.log("HORIZONTAL")
+            scene.activeCamera.fovMode = BABYLON.FOVMODE_HORIZONTAL_FIXED;
+        }else{            
+            console.log("VERTICAL")
+            scene.activeCamera.fovMode = 0;
+        }
         //camera.attachControl(canvas, true);
 
-        var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
-        light1.intensity = .2;
-        light1.diffuse = new BABYLON.Color3(.5, .5, .5);
+        var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, -1, 0), scene);
+        light1.intensity = .1;
+        light1.diffuse = greyColor;
+        var light1_mirror = new BABYLON.HemisphericLight("light1_mirror", new BABYLON.Vector3(0, 1, 0), scene);
+        light1_mirror.intensity = .1;
+        light1_mirror.diffuse = greyColor;
 
-        var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 0, -25), scene);
-        light2.intensity = 100;
+        var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 0, -10), scene);
+        light2.intensity = 200;
         light2.range = 100;
-        light2.diffuse = new BABYLON.Color3(.5, .5, .5);
+        light2.diffuse = BABYLON.Color3.White();
+
+        
         //var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
 
         return scene;
@@ -43,11 +63,19 @@ async function initBabylonJS(){
     loadMesh(scene);
 
     //createImagePlane(scene);
+    let foreground = new GradientForeground(scene);
 
     engine.runRenderLoop(function() {
         scene.render();
     });
-    window.addEventListener("resize", function () {
+    window.addEventListener("resize", function () {                
+        if(canvas.width < canvas.height){ 
+            console.log("HORIZONTAL")
+            scene.activeCamera.fovMode = BABYLON.FOVMODE_HORIZONTAL_FIXED;
+        }else{            
+            console.log("VERTICAL")
+            scene.activeCamera.fovMode = 0;
+        }
         engine.resize();
     });
 }
@@ -78,12 +106,13 @@ function loadMesh(scene){
         for (let i = 0; i < materials.length; i++) {
             const material = materials[i];
             material.backFaceCulling = false;
+            material._albedoColor = new BABYLON.Color3(.5,.5,.5);
         }
         container.addAllToScene();
         runAnimation(meshes[0], scene);
     });
 }
-let speed = .2;
+let speed = .12;
 function runAnimation(mesh, scene){
     let meshes = [];
     for (let i = 0; i < 4; i++) {
@@ -146,8 +175,8 @@ class scrollListener{
     constructor(){
         this.elementCollection = document.getElementsByClassName("scrollableContent");
         this.elementsOnScreen = [];
-        this.contentContainer = document.getElementsByClassName("content")[0];
-        this.contentContainer.onscroll = this.handleScroll;
+        this.contentContainer = document.getElementsByTagName("main")[0];
+        document.body.onscroll = this.handleScroll;
     }
     handleScroll = ()=>{
         for (let i = 0; i < this.elementCollection.length; i++) {
@@ -187,6 +216,85 @@ class scrollListener{
 
 function bindScrollEvent(){
     let listener = new scrollListener();
+    listener.handleScroll();
+}
+
+class GradientForeground {
+
+    gradientPlane;
+
+    constructor(scene){
+        this.createForegroundPlane(scene);
+    }
+    createForegroundPlane =
+    (scene) => {
+        let plane = BABYLON.MeshBuilder.CreatePlane("plane",{size:10}, scene);
+        plane.position = new BABYLON.Vector3(0, 0, 5);
+        //plane.rotate(BABYLON.Axis.X, Math.PI/2, BABYLON.Space.WORLD);
+        plane.visibility = .99;
+
+        let dynTexture = new BABYLON.DynamicTexture("diffuseForeground", 512, scene, true);
+
+        let planeMaterial = new BABYLON.StandardMaterial("planeMat", scene);
+        planeMaterial.diffuseTexture = dynTexture;
+        planeMaterial.emissiveColor = new BABYLON.Color3(1,1,1);
+        planeMaterial.backFaceCulling = false;
+        planeMaterial.alphaMode = BABYLON.Engine.ALPHA_MULTIPLY;
+
+        plane.material = planeMaterial;
+
+
+        let ctx = dynTexture.getContext();      
+
+        let grd1 = ctx.createLinearGradient(0, 0, 1024, 1024); 
+
+        let colorSteps = 1/4;
+
+        grd1.addColorStop(0, "rgb(14,139,237)");
+
+        grd1.addColorStop(.2, "rgb(0,224,139)");
+
+        grd1.addColorStop(.38, "rgb(14,139,237)");
+
+        grd1.addColorStop(.48, "rgb(0,224,139)");
+
+        grd1.addColorStop(.8, "rgb(14,139,237)");
+
+        grd1.addColorStop(1, "rgb(0,224,139)");
+
+        ctx.fillStyle = grd1;
+
+        ctx.fillRect(0, 0, 512, 512);
+
+        dynTexture.update();
+
+        let animation = new BABYLON.Animation("Animation", "material.diffuseTexture.vOffset", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+        
+        let keys = []; 
+
+        keys.push({
+            frame: 0,
+            value: 0,
+        });
+
+        keys.push({
+            frame: 180,
+            value: -.33,
+        });
+
+        animation.setKeys(keys);
+
+        plane.animations.push(animation);
+
+        //scene.beginAnimation(plane, 0, 210, true, 1);
+
+        this.gradientPlane = plane;
+
+        let rot = 0.0001;
+        scene.registerBeforeRender(() => {
+            //plane.rotate(BABYLON.Axis.Y, rot, BABYLON.Space.WORLD);
+        })
+    }
 }
 
 
