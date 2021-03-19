@@ -1,13 +1,15 @@
 
 window.onload = function(){
     headerStart();
-    bindBurger();
     initBabylonJS();
-    bindScrollEvent();
+    let ScrollListener = bindScrollEvent();
+    ScrollListener.handleScroll();
+    navigationStart(ScrollListener);
 }
 
 function headerStart(){
     document.getElementById("headerElement").classList.add("active");
+
 }
 
 async function initBabylonJS(){
@@ -150,14 +152,69 @@ function runAnimation(mesh, scene){
     });
 }
 
-function bindBurger(){
-    var burgerElement = document.getElementById("navigationTrigger");    
+function navigationStart(ScrollListener){
+    let main = document.getElementsByTagName("main")[0];
+    let mainBoundingRect = main.getBoundingClientRect();
+
+    let header = document.getElementById("headerElement");
+    let headerBoundingRect = header.getBoundingClientRect();
+    
+    let footer = document.getElementById("footer");
+    let footerBoundingRect = footer.getBoundingClientRect();
+
+    let mainHeightWithoutHeader = mainBoundingRect.height - headerBoundingRect.height;
+    let mainHeightWithoutHeaderAndFooter = mainHeightWithoutHeader - footerBoundingRect.height;
+
+    let navigationLinkList = document.getElementsByClassName("navigationLinkList")[0].children;
+
+    for (let i = 0; i < navigationLinkList.length; i++) {
+        const element = navigationLinkList[i];
+        const linkedSectionString = element.getElementsByTagName("a")[0].getAttribute("href").replace('#','');
+        const linkedSection = document.getElementById(linkedSectionString);
+        const linkedSectionBoundingRect = linkedSection.getBoundingClientRect();
+
+        let positionInRelationToMain = (linkedSectionBoundingRect.y - headerBoundingRect.height - footerBoundingRect.height) / mainHeightWithoutHeaderAndFooter;
+        
+        let topPerc = 0;
+        switch (linkedSectionString) {
+                case "aboutMe":
+                    topPerc = 15;
+                    break;
+                    case "projectSectionTop":
+                        topPerc = 29;
+                        break;
+                        case "projectSection1":
+                            topPerc = 38;
+                            break;
+                            case "projectSection2":
+                                topPerc = 47;
+                                break;
+                                case "referenceSection":
+                                    topPerc = 61;
+                                    break;
+                                    case "contactSection":
+                                        topPerc = 75;
+                                        break;
+        }
+        if(topPerc !== 0)element.style.top = topPerc+"%";
+        //console.log("linkedSectionString: "+linkedSectionString+" position: "+positionInRelationToMain * window.innerHeight)
+    }
+
+    var burgerElement = document.getElementById("navigationTrigger");   
+    
     function toggleBurgerClass(e){
         let parent = e.srcElement.closest("#navigation");
         if(!parent.classList.contains("active")){
+            ScrollListener.activationHeight = window.scrollY;
             parent.classList.add("active");
+            
+            main.classList.add("activeNavigation");
         }else{
+            ScrollListener.activationHeight = 0;
+
             parent.classList.remove("active");
+            
+            main.classList.remove("activeNavigation");
         }
     }
     burgerElement.addEventListener("click", toggleBurgerClass);
@@ -169,6 +226,9 @@ class scrollListener{
     elementsOnScreen = [];
     threshold = 100;
     activeClass = "activeOnScreen";
+    activationHeight = 0;
+    currentPosition = 0;
+    maxMoveActivation = window.innerHeight * 0.25;
 
     contentContainer;
 
@@ -179,6 +239,17 @@ class scrollListener{
         document.body.onscroll = this.handleScroll;
     }
     handleScroll = ()=>{
+        if(this.activationHeight !== 0){
+            this.currentPosition = window.scrollY;
+            console.log(this.maxMoveActivation)
+            if(Math.abs(this.activationHeight - this.currentPosition) > this.maxMoveActivation){
+                this.activationHeight = 0;
+    
+                document.getElementById("navigation").classList.remove("active");
+                
+                document.getElementsByTagName("main")[0].classList.remove("activeNavigation");
+            }
+        }
         for (let i = 0; i < this.elementCollection.length; i++) {
             const element = this.elementCollection[i];
             this.checkElement(element);
@@ -215,8 +286,7 @@ class scrollListener{
 }
 
 function bindScrollEvent(){
-    let listener = new scrollListener();
-    listener.handleScroll();
+    return new scrollListener();
 }
 
 class GradientForeground {
