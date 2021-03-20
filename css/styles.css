@@ -930,12 +930,12 @@ header.active > section{
         text-align: left;
         margin-bottom: var(--space-s);
     }
-    footer{
-        width:100%;
+    #footer{
+        max-width:100%;
         flex-direction: column;
         align-items: center;
     }
-    footer section{
+    #footer section{
         align-items: center;
     }
 }
