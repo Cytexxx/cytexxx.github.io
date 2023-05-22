@@ -5,7 +5,7 @@
 
     --standard-text-color: rgb(240,240,240);
     --opacity-text-color: rgba(240,240,240,.7);
-    --accent-color-1:#800EED;
+    --accent-color-1:#800eed;
     --accent-color-2:#460FF7;
     --accent-color-3:#191EE0;
     --accent-color-4:#0F54F7;
@@ -108,7 +108,7 @@ a[href="#projectSection1"]{
 a[href="#projectSection2"]{
     top:55%;
 }
-a[href="#referenceSection"]{
+a[href=".referenceSection"]{
     top:75%;
 }
 #headerElement,
@@ -123,13 +123,16 @@ a[href="#aboutMe"]{
     --sectionSecondaryColor: #04C7A7;
     --accent-color-6: var(--sectionMainColor);
 }
-#projectSectionTop,
-a[href="#projectSectionTop"]{
+#gameProjectSectionTop,
+#devProjectSectionTop,
+a[href="#gameProjectSectionTop"],
+a[href="#devProjectSectionTop"]{
     --sectionMainColor: #04C7A7;
     --sectionSecondaryColor: #06BBB5;
     --accent-color-6: var(--sectionMainColor);
 }
-#projectSectionTop{
+#gameProjectSectionTop,
+#devProjectSectionTop{
     margin-bottom: 0;
 }
 #projectSection1,
@@ -147,47 +150,48 @@ a[href="#projectSection2"]{
     --sectionSecondaryColor: #0AA3D1;
     --accent-color-6: var(--sectionMainColor);
 }
-#referenceSection,
-a[href="#referenceSection"]{
+.referenceSection,
+a[href=".referenceSection"]{
     --sectionMainColor: #0AA3D1;
     --sectionSecondaryColor: #0C97DF;
     --accent-color-6: var(--sectionMainColor);
 }
-#referenceSection li a{
+.referenceSection li a{
     font-weight: 300;
     background: linear-gradient(180deg, var(--sectionMainColor), var(--sectionSecondaryColor));
     background-size:100%;
 
+    background-clip: text;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent; 
     -moz-text-fill-color: transparent;
 }
-#referenceSection .childColor1{
+.referenceSection .childColor1{
     --sectionMainColor: #0AA3D1;
     --sectionSecondaryColor: #0AA0D3;
     
     --accent-color-6: var(--sectionSecondaryColor);
 }
-#referenceSection .childColor2{
+.referenceSection .childColor2{
     --sectionMainColor: #0AA0D3;
     --sectionSecondaryColor: #0A9ED6;
     
     --accent-color-6: var(--sectionSecondaryColor);
 }
-#referenceSection .childColor3{
+.referenceSection .childColor3{
     --sectionMainColor: #0A9ED6;
     --sectionSecondaryColor: #0B9BD9;
     
     --accent-color-6: var(--sectionSecondaryColor);
 }
-#referenceSection .childColor4{
+.referenceSection .childColor4{
     --sectionMainColor: #0B9BD9;
     --sectionSecondaryColor: #0B99DC;
     
     --accent-color-6: var(--sectionSecondaryColor);
 }
-#referenceSection .childColor5{
+.referenceSection .childColor5{
     --sectionMainColor: #0B99DC;
     --sectionSecondaryColor: #0C97DF;
     
@@ -213,7 +217,7 @@ a[href="#footer"]{
     display: flex;
     flex-direction: row;
 
-    margin-bottom:var(--space-xxl);
+    margin-bottom:var(--space-l);
 
     transition: 1s;
 }
@@ -305,7 +309,8 @@ li a{
 span a{
     font-size: 1em;
 }
-a:hover{
+a:hover,
+a:active{
     color:var(--accent-color-6);
     text-decoration:line-through;
 }
@@ -329,7 +334,10 @@ li::before{
     margin-right: var(--space-s);
     transform: rotate(210deg);
 }
-#referenceSection, .gameProjectColor{
+#devReferenceSection, .devProjectColor{
+    --accent-color-6:var(--accent-color-6);
+}
+.referenceSection, .gameProjectColor{
     --accent-color-6:var(--accent-color-5);
 }
 .whiteText{
@@ -378,13 +386,26 @@ article:hover .borderRight:after,
 section:hover .borderLeft:before, 
 section:hover .borderLeft:after, 
 section:hover .borderRight:before, 
-section:hover .borderRight:after{
+section:hover .borderRight:after,
+footer:active .borderLeft:before, 
+footer:active .borderLeft:after, 
+footer:active .borderRight:before, 
+footer:active .borderRight:after,
+article:active .borderLeft:before, 
+article:active .borderLeft:after, 
+article:active .borderRight:before, 
+article:active .borderRight:after,
+section:active .borderLeft:before, 
+section:active .borderLeft:after, 
+section:active .borderRight:before, 
+section:active .borderRight:after{
     width: calc(18% + var(--border-size));
 }
 .tintOnHover{
     transition:.7s;
 }
-section:hover .tintOnHover{
+section:hover .tintOnHover,
+section:active .tintOnHover{
     color:var(--accent-color-6);
 }
 .borderLeft:before, .borderLeft:after{
@@ -407,7 +428,7 @@ section:hover .tintOnHover{
     opacity: 0;
     padding: var(--space-xl);
 
-    margin:calc(2 * var(--space-xxl)) 0;
+    margin:calc(2 * var(--space-l)) 0;
 
     transition: opacity .7s;
 }
@@ -465,6 +486,24 @@ section:hover .tintOnHover{
 
     border:var(--border-size) solid var(--standard-text-color);
 }
+.textArticle article section.rightSide > .button-list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.textArticle article section.rightSide > .button-list > li::before{
+    display: none;
+}
+.textArticle article section.rightSide > .button-list .button{
+    position: relative;
+    font-weight: bolder;
+}
+
+.textArticle article section.rightSide.no-padding-bottom{
+    padding-bottom: 0;
+}
+
 .textArticle article ul{
     padding-top:var(--space-m);
 }
@@ -499,7 +538,11 @@ section:hover .tintOnHover{
 .button:hover .borderLeft:before, 
 .button:hover .borderLeft:after,
 .button:hover .borderRight:before, 
-.button:hover .borderRight:after{
+.button:hover .borderRight:after,
+.button:active .borderLeft:before, 
+.button:active .borderLeft:after,
+.button:active .borderRight:before, 
+.button:active .borderRight:after{
     width: calc(50% + var(--border-size));
 }
 .textArticle:hover .button{
@@ -517,7 +560,11 @@ nav{
 .navigationTrigger:hover .borderLeft:before, 
 .navigationTrigger:hover .borderLeft:after, 
 .navigationTrigger:hover .borderRight:before, 
-.navigationTrigger:hover .borderRight:after{
+.navigationTrigger:hover .borderRight:after,
+.navigationTrigger:active .borderLeft:before, 
+.navigationTrigger:active .borderLeft:after, 
+.navigationTrigger:active .borderRight:before, 
+.navigationTrigger:active .borderRight:after{
     width: calc(25% + var(--border-size));
 }
 
@@ -591,7 +638,8 @@ nav #navigationContent ul li a::after{
     margin-left: 5px;
     margin-right: -15px;
 }
-nav #navigationContent ul a:hover{
+nav #navigationContent ul a:hover,
+nav #navigationContent ul a:active{
     --standard-text-color:var(--sectionMainColor);
 }
 
@@ -609,15 +657,20 @@ nav #navigationContent ul a:hover{
     --element-color:var(--standard-text-color);
     --background-image:url("../src/triangle_white.png");
 }
-#navigationTrigger:hover{
+#navigationTrigger:hover,
+#navigationTrigger:active{
     --element-color:var(--accent-color-6);
     --border-color:var(--element-color);
     /*--background-image:url("../src/triangle_green.png");*/
 }
-#navigationTrigger:hover > .pointWrapper > .point:nth-child(even){
+#navigationTrigger:hover > .pointWrapper > .point:nth-child(even),
+#navigationTrigger:active > .pointWrapper > .point:nth-child(even),
+.active #navigationTrigger > .pointWrapper > .point:nth-child(even){
     margin-top:10px;
 }
-#navigationTrigger:hover > .pointWrapper > .point:nth-child(odd){
+#navigationTrigger:hover > .pointWrapper > .point:nth-child(odd),
+#navigationTrigger:active > .pointWrapper > .point:nth-child(odd),
+.active #navigationTrigger > .pointWrapper > .point:nth-child(odd){
     margin-top:-10px;
 }
 #navigationTrigger > .pointWrapper{
@@ -804,24 +857,24 @@ header.active > section{
     position: relative;
     margin:0 var(--space-m);
 }
-#referenceSection a{
+.referenceSection a{
     color:var(--accent-color-6);
 }
-#referenceSection ul{
+.referenceSection ul{
     padding: 0;
 }
-#referenceSection li{
+.referenceSection li{
     margin:var(--space-xl) 0;
 
     align-items: stretch;
 }
-#referenceSection li:first-child{
+.referenceSection li:first-child{
     margin-top: 0;
 }
-#referenceSection li:last-child{
+.referenceSection li:last-child{
     margin-bottom: 0;
 }
-#referenceSection li > a{
+.referenceSection li > a{
     line-height:1.2;
     text-align: right;
     padding-right:var(--space-m);
@@ -830,7 +883,7 @@ header.active > section{
     justify-content: flex-end;
     align-items: center;
 }
-#referenceSection li > span{
+.referenceSection li > span{
     font-size:.8em;
     padding-left:var(--space-m);
 
@@ -838,7 +891,7 @@ header.active > section{
     justify-content: flex-start;
     align-items: center;
 }
-#referenceSection li span::before{
+.referenceSection li span::before{
     content:"";
     width:var(--border-size);
     height: 100%;
@@ -847,10 +900,10 @@ header.active > section{
     position: absolute;
     left:0;
 }
-#referenceSection li > *{
+.referenceSection li > *{
     flex:1 1 0;
 }
-#referenceSection li::before{
+.referenceSection li::before{
     display: none;
 }
 
@@ -861,6 +914,10 @@ header.active > section{
 .vlrImage{
     background-image:url("../src/vlr_image.jpg");
 }
+.fischerImage{
+    background-image:url("../src/fischer.jpg");
+    background-position: left top !important;
+}
 @media (max-width: 991.98px) { 
     .flexStartSelf-medium{
         align-self: flex-start !important;
@@ -870,11 +927,15 @@ header.active > section{
     }
     
     h1{
-        font-size:5rem;
+        font-size:3.5rem;
     }
     
     h2{
-        font-size:5rem;
+        font-size:3.5rem;
+    }
+    h3,
+    li{
+        font-size: 2.8rem;
     }
     .headingWrapper{
         margin-left: 0;
@@ -920,13 +981,13 @@ header.active > section{
         margin:0;
         margin-top: var(--space-xl);
 
-        font-size:4.2rem;
+        font-size:3rem;
     }
-    #referenceSection li{
+    .referenceSection li{
         flex-direction: column;
         align-items: flex-start;
     }
-    #referenceSection li a{
+    .referenceSection li a{
         text-align: left;
         margin-bottom: var(--space-s);
     }

@@ -35,26 +35,23 @@ async function initBabylonJS(){
         
                  
         if(canvas.width < canvas.height){ 
-            console.log("HORIZONTAL")
             scene.activeCamera.fovMode = BABYLON.FOVMODE_HORIZONTAL_FIXED;
         }else{            
-            console.log("VERTICAL")
             scene.activeCamera.fovMode = 0;
         }
         //camera.attachControl(canvas, true);
 
         var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, -1, 0), scene);
-        light1.intensity = .1;
+        light1.intensity = .3;
         light1.diffuse = greyColor;
         var light1_mirror = new BABYLON.HemisphericLight("light1_mirror", new BABYLON.Vector3(0, 1, 0), scene);
-        light1_mirror.intensity = .1;
+        light1_mirror.intensity = .3;
         light1_mirror.diffuse = greyColor;
 
-        var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 0, -10), scene);
+        var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 0, -20), scene);
         light2.intensity = 200;
-        light2.range = 100;
+        light2.range = 2000;
         light2.diffuse = BABYLON.Color3.White();
-
         
         //var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
 
@@ -72,10 +69,8 @@ async function initBabylonJS(){
     });
     window.addEventListener("resize", function () {                
         if(canvas.width < canvas.height){ 
-            console.log("HORIZONTAL")
             scene.activeCamera.fovMode = BABYLON.FOVMODE_HORIZONTAL_FIXED;
         }else{            
-            console.log("VERTICAL")
             scene.activeCamera.fovMode = 0;
         }
         engine.resize();
@@ -121,19 +116,19 @@ function runAnimation(mesh, scene){
         let clone = mesh.clone();
         switch (i) {
             case 0:
-                clone.position.z = -24.48;
+                clone.position = new BABYLON.Vector3(0,0,-24.48);
             break;
             case 1:
-                clone.position.z = -16.32;
+                clone.position = new BABYLON.Vector3(0,0,-16.32);
             break;
             case 2:
-                clone.position.z = -8.16;
+                clone.position = new BABYLON.Vector3(0,0,-8.16);
             break;
             case 3:
-                clone.position.z = 0;
+                clone.position = new BABYLON.Vector3(0,0,0);
             break;
         }  
-        meshes.push(clone);      
+        meshes.push(clone);
     }
     scene.registerBeforeRender(function(){
         let deltaTime;
@@ -178,26 +173,20 @@ function navigationStart(ScrollListener){
         let topPerc = 0;
         switch (linkedSectionString) {
                 case "aboutMe":
-                    topPerc = 15;
+                    topPerc = 18;
                     break;
-                    case "projectSectionTop":
-                        topPerc = 29;
+                    case "devProjectSectionTop":
+                        topPerc = 35;
                         break;
-                        case "projectSection1":
-                            topPerc = 38;
-                            break;
-                            case "projectSection2":
-                                topPerc = 47;
+                            case "gameProjectSectionTop":
+                                topPerc = 55;
                                 break;
-                                case "referenceSection":
-                                    topPerc = 61;
-                                    break;
                                     case "contactSection":
                                         topPerc = 75;
                                         break;
         }
         if(topPerc !== 0)element.style.top = topPerc+"%";
-        //console.log("linkedSectionString: "+linkedSectionString+" position: "+positionInRelationToMain * window.innerHeight)
+        console.log("linkedSectionString: "+linkedSectionString+" position: "+positionInRelationToMain * window.innerHeight)
     }
 
     var burgerElement = document.getElementById("navigationTrigger");   
@@ -241,7 +230,6 @@ class scrollListener{
     handleScroll = ()=>{
         if(this.activationHeight !== 0){
             this.currentPosition = window.scrollY;
-            console.log(this.maxMoveActivation)
             if(Math.abs(this.activationHeight - this.currentPosition) > this.maxMoveActivation){
                 this.activationHeight = 0;
     
@@ -364,59 +352,5 @@ class GradientForeground {
         scene.registerBeforeRender(() => {
             //plane.rotate(BABYLON.Axis.Y, rot, BABYLON.Space.WORLD);
         })
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function writeText(){
-    let text = [
-        "Hallo Welt!",
-        "Ich mag Kuchen"
-    ]
-    let wrapper = document.getElementById("selfWritingText");
-    for(let i = 0; i < text.length; i++){
-        if(i == 0){
-            writeLine(wrapper, text[i]);
-        }else{
-            setTimeout(function(){
-                writeLine(wrapper, text[i]);
-            }, text[i-1].length * 100);
-        }
-    }
-}
-function writeLine(wrapper, line){
-    let target = document.createElement("p");
-    wrapper.appendChild(target);
-    writeChar(target, line);
-}
-function writeChar(target, text){
-    if(text.length > 0){
-        target.innerHTML = text[text.length-1]+target.innerHTML;
-        setTimeout(function(){
-            text = text.slice( 0, -1 );
-            writeChar(target, text)
-        },100)
     }
 }

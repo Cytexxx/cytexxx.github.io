@@ -5,15 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://use.typekit.net/llw2joj.css">
         <link rel="stylesheet" href="css/styles.css?v=1">
-        <script src="https://cdn.babylonjs.com/babylon.js"></script>
-        <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.js?v=1"></script>
-        <script src="src/script.js?v=1"></script>
         <link rel="shortcut icon" type="image/x-icon" href="src/favicon.ico">
         <title>Maximilian Berger</title>
     </head>
-    <body>
-
-        
+    <body>        
         <canvas id="renderCanvas" touch-action="none"></canvas>
 
         <nav id="navigation">
@@ -28,10 +23,8 @@
             <section id="navigationContent">
                 <ul class="navigationLinkList">
                     <li><a href="#aboutMe">About me</a></li>
-                    <li class="gameProjectColor"><a href="#projectSectionTop">Projects</a></li>
-                    <li class="gameProjectColor subSection"><a href="#projectSection1">TileAble</a></li>
-                    <li class="gameProjectColor subSection"><a href="#projectSection2">Viva La Riveration</a></li>
-                    <li class="gameProjectColor"><a href="#referenceSection">References</a></li>
+                    <li class="devProjectColor"><a href="#devProjectSectionTop">Dev Projects</a></li>
+                    <li class="gameProjectColor"><a href="#gameProjectSectionTop">Game Projects</a></li>
                     <li><a href="#contactSection">Contact</a></li>
                     <li><a href="#headerElement"></a></li>
                 </ul>
@@ -63,9 +56,9 @@
                     <div class="borderRight"></div>
                     <h1>Maxi&shy;mi&shy;lian Berger</h1>
                     <div class="headingWrapper whiteText">
-                        <h3 class="whiteText">Web-Design</h3>
-                        <h3 class="whiteText">Lecturer</h3>
-                        <h3 class="whiteText">Game-Development</h3>
+                        <h3 class="whiteText">Web-Development</h3>
+                        <h3 class="whiteText">Frontend</h3>    
+                        <h3 class="whiteText">Design</h3>    
                     </div>
                 </section>
             </header>
@@ -76,7 +69,7 @@
                 <h2>About me</h2>
                 <article>
                     <section class="leftSide">
-                        <p>I love tinkering at projects from various fields of media. I design and develop websites, often with focus on inter&shy;activity. I teach web-development and other related design subjects at the "bm - Berufs&shy;akademie" and its' faculty "School of Games" in Cologne.<br> In my spare-time I try to step-up my game development skills and do other design related stuff like renderings, illustrations and conceptions.</p>
+                        <p>I love tinkering at projects from various fields of media. I develop and design websites, often with focus on inter&shy;activity. My home is the frontend but when necessary I build the foundational backend too. Starting 2022 I study business informatics (B.sc) at the TH-Köln and FH-Dortmund.<br> In my spare-time I try to step-up my development skills and do other development related stuff, like creating games and other small private projects</p>
                     </section>
                     <section class="rightSide centerSelf textCenter">
                         <h4 class="whiteText"><span class="tintOnHover">D</span>esign is an undefined order of chaos</h4>
@@ -84,13 +77,87 @@
                 </article>
             </section>
             
-            <section id="projectSectionTop" class="textArticle sectionHeader scrollableContent gameProjectColor">
+            <section id="devProjectSectionTop" class="textArticle sectionHeader scrollableContent devProjectColor">
+                <div class="borderLeft"></div>
+                <div class="borderRight"></div>           
+                <h2 class="m-0">Dev Projects</h2>
+            </section>
+
+            <section id="projectSection1" class="textArticle scrollableContent devProjectColor mt-l">
+                <div class="borderLeft"></div>
+                <div class="borderRight"></div>    
+                <h3>Web-Shop | FISCHER Fahrrad</h3>  
+                <article>
+                    <section class="leftSide">
+                        <p>While working for Cologic GmbH & Co. KG I was instructed to overhaul the webshop of "FISCHER-Fahrrad". The store should comply with the most modern design methods and attract customers to buy through a new UX. In addition it should be easy to maintain and customize to the store maintainers.</p>
+                    
+                        <ul>
+                            <li><span class="tintOnHover">W</span>ebshop</li>
+                            <li><span class="tintOnHover">S</span>hopware</li>
+                            <li><span class="tintOnHover">UX</span>-Design</li>
+                        </ul>
+                    </section>
+                    <section class="rightSide stretchSelf">
+                        <div class="fischerImage"></div>
+                    </section>
+                </article>
+
+                <a class="button" href="https://www.fischer-bike.com/de-de/" target="_blank"><div class="borderLeft"></div><div class="borderRight"></div>View</a>
+            </section>
+
+            <section id="projectSection2" class="textArticle scrollableContent devProjectColor mt-l">
+                <div class="borderLeft"></div>
+                <div class="borderRight"></div>    
+                <h3>3D-Anwen&shy;dungen<br>Museum Himmels&shy;wege</h3>  
+                <article>
+                    <section class="leftSide">
+                        <p>At the end of 2020 I got the order to build several interactive 3D application for the museum Himmelswege. The main goal was to make the exhibits more tangible and to incorporate them into informative applications about the Nebra Sky Disc, its site and the dolmen goddess of Langeneichstädt.
+                        </p>
+                        
+                        <ul>
+                            <li><span class="tintOnHover">T</span>hree-JS</li>
+                            <li><span class="tintOnHover">I</span>nteractive</li>
+                            <li><span class="tintOnHover">E</span>ducational</li>
+                        </ul>
+                    </section>
+                    <section class="rightSide stretchSelf no-padding-bottom">
+                        <!--div class="museumImage"></div-->
+
+                        <ul class="button-list">
+                            <li>
+                                <a class="button" href="https://www.emuseum-himmelswege.de/fileadmin/media/3D/m_himmelswege_himmelsscheibe_de/m_himmelswege.html" target="_blank"><div class="borderLeft"></div><div class="borderRight"></div>Nebra Sky Disk</a>
+                            </li>
+                            <li>                
+                                <a class="button" href="https://www.emuseum-himmelswege.de/fileadmin/media/3D/m_himmelswege_hortfund_de/m_himmelswege.html" target="_blank"><div class="borderLeft"></div><div class="borderRight"></div>Site of the Nebra Sky Disk</a>
+                            </li>
+                            <li>                
+                                <a class="button" href="https://www.emuseum-himmelswege.de/archaeostories/langeneichstaedt" target="_blank"><div class="borderLeft"></div><div class="borderRight"></div>Dolmen goddess of Langeneichstädt</a>
+                            </li>
+                        </ul>       
+                    </section>
+                </article>         
+            </section>
+
+            <section id="devReferenceSection" class="referenceSection textArticle scrollableContent referencesColor">
+                <div class="borderLeft"></div>
+                <div class="borderRight"></div>    
+                <h2>Other Dev Projects</h2>
+                <article>
+                    <ul>
+                        <li class="childColor1"><a href="https://www.cologic.de/" target="_blank">Cologic GmbH & Co.KG</a><span><p>Participation in various Projects like Web-AR, Web-Shops and interactive Websites like <a href="https://hallo.beethoven.de/html5/start.html" target="_blank">Beethoven for Kids</a></p></span></li>
+                        <li class="childColor3"><a href="https://campsite.bio/beyondtheavalanche" target="_blank">Album-Cover "Mirrors" from "Beyond the Avalanche"</a><span>Designing and making the Cover for their newest release.</span></li>
+                        <li class="childColor4"><a href="https://www.medienberufe.de/" target="_blank">Website Relaunch "bm - Bildung in Medienberufen"</a><span>Improving responsiveness, implementation of the HTML5-Standards</span></li>                        
+                    </ul>
+                </article>
+            </section>
+            
+            <section id="gameProjectSectionTop" class="textArticle sectionHeader scrollableContent gameProjectColor">
                 <div class="borderLeft"></div>
                 <div class="borderRight"></div>           
                 <h2 class="m-0">Game Projects</h2>
             </section>
 
-            <section id="projectSection1" class="textArticle scrollableContent gameProjectColor mt-xxl">
+            <section id="projectSection1" class="textArticle scrollableContent gameProjectColor mt-l">
                 <div class="borderLeft"></div>
                 <div class="borderRight"></div>    
                 <h3>TileAble</h3>  
@@ -112,7 +179,7 @@
                 <a class="button" href="https://btopp.itch.io/tileable" target="_blank"><div class="borderLeft"></div><div class="borderRight"></div>Play</a>
             </section>
 
-            <section id="projectSection2" class="textArticle scrollableContent gameProjectColor mt-xxl">
+            <section id="projectSection2" class="textArticle scrollableContent gameProjectColor mt-l">
                 <div class="borderLeft"></div>
                 <div class="borderRight"></div>    
                 <h3>Viva La Riveration</h3>  
@@ -134,16 +201,13 @@
                 <a class="button" href="https://btopp.itch.io/viva-la-riveration" target="_blank"><div class="borderLeft"></div><div class="borderRight"></div>Play</a>
             </section>
 
-            <section id="referenceSection" class="textArticle scrollableContent referencesColor">
+            <section class="referenceSection textArticle scrollableContent referencesColor">
                 <div class="borderLeft"></div>
                 <div class="borderRight"></div>    
-                <h2>Other Projects</h2>  
+                <h2>Other Game Projects</h2>  
                 <article>
                     <ul>
-                        <li class="childColor1"><a href="https://www.cologic.de/" target="_blank">Cologic GmbH & Co.KG</a><span><p>Participation in various Projects like Web-AR, CMS and interactive Websites like <a href="https://hallo.beethoven.de/html5/start.html" target="_blank">Beethoven for Kids</a></p></span></li>
                         <li class="childColor2"><a href="https://globalgamejam.org/users/maxberger" target="_blank">Global Game Jam 2017 - 2020</a><span>Conception and Prototype-Development</span></li>
-                        <li class="childColor3"><a href="https://campsite.bio/beyondtheavalanche" target="_blank">Album-Cover "Mirrors" from "Beyond the Avalanche"</a><span>Designing and making the Cover for their newest release.</span></li>
-                        <li class="childColor4"><a href="https://www.medienberufe.de/" target="_blank">Website Relaunch "bm - Bildung in Medienberufen"</a><span>Improving responsiveness, implementation of the HTML5-Standards</span></li>                        
                         <li class="childColor5"><a href="https://itch.io/jam/imgly" target="_blank">img.ly Game Jam 2019</a><span>Help organizing the Jam and developing a small prototype</span></li>
                     </ul>
                 </article>
@@ -166,11 +230,12 @@
                 <section>
                     <h4 class="whiteText">&copy; Maximilian Berger</h4>
                     <a href="mailto:max_berger95@hotmail.de">max_berger95@hotmail.de</a>
-                    <a href="legals/impressum.html">Impressum</a>
-                    <a href="legals/datenschutz.html">Datenschutz</a>
+                    <!--a href="legals/impressum.html">Impressum</a-->
+                    <!--a href="legals/datenschutz.html">Datenschutz</a-->
                 </section>
             </footer>
         </main>
       
+        <script src="dist/main.js" defer></script>
     </body>
 </html>

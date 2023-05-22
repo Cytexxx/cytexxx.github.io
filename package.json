@@ -1,0 +1,26 @@
+{
+  "name": "cytexxx.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cytexxx/cytexxx.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cytexxx/cytexxx.github.io/issues"
+  },
+  "homepage": "https://github.com/Cytexxx/cytexxx.github.io#readme",
+  "devDependencies": {
+    "@babylonjs/core": "^6.4.1",
+    "@babylonjs/loaders": "^6.4.1",
+    "webpack": "^5.83.1",
+    "webpack-cli": "^5.1.1"
+  }
+}
